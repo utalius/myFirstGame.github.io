@@ -33,14 +33,25 @@
             border: none;
             cursor: pointer;
         }
+
+        /* Yeni eklenen stiller */
+        #game-over-message {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
     <div id="game-container">
         <canvas id="game-canvas" width="800" height="600"></canvas>
     </div>
-    <button id="play-button">Play</button>
-    <button id="retry-button" style="display: none;">Retry</button>
+    <!-- Güncellenmiş game-over-message div'i -->
+    <div id="game-over-message">
+        <p>Game Over! Score: <span id="final-score">0</span></p>
+        <button id="retry-button">Retry</button>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script>
         const canvas = document.getElementById('game-canvas');
@@ -116,7 +127,9 @@
                 ) {
                     explosionSound.play();
                     retryButton.style.display = 'block';
-                    alert("Game Over! Score: " + score);
+                    // alert("Game Over! Score: " + score);
+                    document.getElementById('final-score').innerText = score;
+                    document.getElementById('game-over-message').style.display = 'block';
                     return;
                 }
 
