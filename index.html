@@ -34,7 +34,6 @@
             cursor: pointer;
         }
 
-        /* Yeni eklenen stiller */
         #game-over-message {
             display: none;
             text-align: center;
@@ -47,7 +46,6 @@
     <div id="game-container">
         <canvas id="game-canvas" width="800" height="600"></canvas>
     </div>
-    <!-- Güncellenmiş play-button ve game-over-message div'leri -->
     <div id="buttons-container">
         <button id="play-button">Play</button>
         <div id="game-over-message">
@@ -122,12 +120,7 @@
                 enemies[i].y += missileSpeed;
                 drawEnemy(enemies[i]);
 
-                if (
-                    enemies[i].x < ship.x + ship.width &&
-                    enemies[i].x + 20 > ship.x &&
-                    enemies[i].y < ship.y + ship.height &&
-                    enemies[i].y + 20 > ship.y
-                ) {
+                if (isCollision(enemies[i], ship)) {
                     explosionSound.play();
                     gameOver = true;
                     retryButton.style.display = 'block';
@@ -170,6 +163,15 @@
             if (gameRunning && !gameOver) {
                 requestAnimationFrame(draw);
             }
+        }
+
+        function isCollision(obj1, obj2) {
+            return (
+                obj1.x < obj2.x + obj2.width &&
+                obj1.x + 20 > obj2.x &&
+                obj1.y < obj2.y + obj2.height &&
+                obj1.y + 20 > obj2.y
+            );
         }
 
         document.addEventListener('keydown', (e) => {
