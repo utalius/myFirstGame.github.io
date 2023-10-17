@@ -47,7 +47,11 @@
     <div id="game-container">
         <canvas id="game-canvas" width="800" height="600"></canvas>
     </div>
-    <!-- Güncellenmiş game-over-message div'i -->
+    <!-- Güncellenmiş play-button ve game-over-message div'leri -->
+    <div id="buttons-container">
+        <button id="play-button">Play</button>
+        <button id="retry-button" style="display: none;">Retry</button>
+    </div>
     <div id="game-over-message">
         <p>Game Over! Score: <span id="final-score">0</span></p>
         <button id="retry-button">Retry</button>
@@ -127,7 +131,6 @@
                 ) {
                     explosionSound.play();
                     retryButton.style.display = 'block';
-                    // alert("Game Over! Score: " + score);
                     document.getElementById('final-score').innerText = score;
                     document.getElementById('game-over-message').style.display = 'block';
                     return;
