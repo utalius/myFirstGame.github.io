@@ -52,6 +52,7 @@
         const enemies = [];
         let rightPressed = false;
         let leftPressed = false;
+        let gameRunning = false;
 
         function drawShip() {
             // ... (Diğer kodlar devam ediyor)
@@ -65,7 +66,26 @@
             // ... (Diğer kodlar devam ediyor)
         }
 
-        // ... (Diğer kodlar devam ediyor)
+        function moveShip() {
+            // ... (Diğer kodlar devam ediyor)
+        }
+
+        function moveBullets() {
+            // ... (Diğer kodlar devam ediyor)
+        }
+
+        function moveEnemies() {
+            // ... (Diğer kodlar devam ediyor)
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawShip();
+            moveShip();
+            moveBullets();
+            moveEnemies();
+            requestAnimationFrame(draw);
+        }
 
         document.addEventListener('keydown', (e) => {
             // ... (Diğer kodlar devam ediyor)
@@ -76,7 +96,14 @@
         });
 
         document.getElementById('play-button').addEventListener('click', () => {
-            // ... (Diğer kodlar devam ediyor)
+            if (!gameRunning) {
+                gameRunning = true;
+                setInterval(() => {
+                    enemies.push({ x: Math.random() * (canvas.width - 20), y: 0 });
+                }, 1000);
+                draw();
+                shootingSound.play();
+            }
         });
     </script>
 </body>
