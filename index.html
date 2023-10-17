@@ -50,11 +50,10 @@
     <!-- Güncellenmiş play-button ve game-over-message div'leri -->
     <div id="buttons-container">
         <button id="play-button">Play</button>
-        <button id="retry-button" style="display: none;">Retry</button>
-    </div>
-    <div id="game-over-message">
-        <p>Game Over! Score: <span id="final-score">0</span></p>
-        <button id="retry-button">Retry</button>
+        <div id="game-over-message">
+            <p>Game Over! Score: <span id="final-score">0</span></p>
+            <button id="retry-button" style="display: none;">Retry</button>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script>
@@ -78,7 +77,6 @@
 
         function drawShip() {
             ctx.beginPath();
-            // Uzay gemisi olarak stilize edilmiş mavi kare
             ctx.fillStyle = '#3498db';
             ctx.fillRect(ship.x, ship.y, ship.width, ship.height);
             ctx.closePath();
@@ -94,7 +92,6 @@
 
         function drawEnemy(enemy) {
             ctx.beginPath();
-            // Füze olarak stilize edilmiş sarı kare
             ctx.fillStyle = '#e67e22';
             ctx.fillRect(enemy.x, enemy.y, 20, 20);
             ctx.closePath();
@@ -139,16 +136,14 @@
                     return;
                 }
 
-                // Skor sayımı düşmanın oyun tabanına temas ettiğinde yapılır
                 if (enemies[i].y + 20 > canvas.height) {
                     score += 10;
                     enemies.splice(i, 1);
                     i--;
 
-                    // Skor, belirli bir eşiğe geldiğinde ve oyun hala devam ediyorsa
                     if (score % missileIncreaseThreshold === 0 && gameRunning) {
-                        missileSpeed *= 1.5; // Füze hızını 1.5 kat artır
-                        missileIncreaseThreshold += 10; // Eşiği 10 artır
+                        missileSpeed *= 1.5;
+                        missileIncreaseThreshold += 10;
                     }
                 }
             }
@@ -202,7 +197,6 @@
                 retryButton.style.display = 'none';
                 gameOver = false;
                 setInterval(() => {
-                    // Füzeler artık oyuncunun bulunduğu yere doğru gelir
                     enemies.push({ x: ship.x + ship.width / 2 - 10, y: 0 });
                     if (score % 100 === 0) {
                         increaseMissileFrequency();
