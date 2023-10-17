@@ -138,7 +138,9 @@
                     return;
                 }
 
-                if (enemies[i].y > canvas.height) {
+                // Skor sayımı düşmanın oyun tabanına temas ettiğinde yapılır
+                if (enemies[i].y + 20 > canvas.height) {
+                    score += 10;
                     enemies.splice(i, 1);
                     i--;
                 }
@@ -195,7 +197,6 @@
                 setInterval(() => {
                     const randomX = Math.random() * (canvas.width - 20);
                     enemies.push({ x: randomX, y: 0 });
-                    score += 10;
                     if (score % 100 === 0) {
                         increaseMissileFrequency();
                     }
