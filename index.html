@@ -53,6 +53,7 @@
         let rightPressed = false;
         let leftPressed = false;
         let gameRunning = false;
+        let score = 0;
 
         function drawShip() {
             ctx.beginPath();
@@ -110,7 +111,7 @@
                     enemies[i].y + 20 > ship.y
                 ) {
                     explosionSound.play();
-                    alert("Game Over!");
+                    alert("Game Over! Score: " + score);
                     document.location.reload();
                 }
 
@@ -121,12 +122,19 @@
             }
         }
 
+        function drawScore() {
+            ctx.font = "16px Arial";
+            ctx.fillStyle = "#fff";
+            ctx.fillText("Score: " + score, 20, 20);
+        }
+
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawShip();
             moveShip();
             moveBullets();
             moveEnemies();
+            drawScore();
 
             if (gameRunning) {
                 requestAnimationFrame(draw);
@@ -157,6 +165,7 @@
                 gameRunning = true;
                 setInterval(() => {
                     enemies.push({ x: Math.random() * (canvas.width - 20), y: 0 });
+                    score += 10; // Her füze için 10 puan ekle
                 }, 1000);
                 draw();
             }
