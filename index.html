@@ -40,6 +40,7 @@
         <canvas id="game-canvas" width="800" height="600"></canvas>
     </div>
     <button id="play-button">Play</button>
+    <button id="retry-button" style="display: none;">Retry</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script>
         const canvas = document.getElementById('game-canvas');
@@ -54,6 +55,9 @@
         let leftPressed = false;
         let gameRunning = false;
         let score = 0;
+        let missileSpeed = 2;
+        let missileFrequency = 1000;
+        let retryButton = document.getElementById('retry-button');
 
         function drawShip() {
             ctx.beginPath();
@@ -101,7 +105,7 @@
 
         function moveEnemies() {
             for (let i = 0; i < enemies.length; i++) {
-                enemies[i].y += 2;
+                enemies[i].y += missileSpeed;
                 drawEnemy(enemies[i]);
 
                 if (
@@ -111,8 +115,9 @@
                     enemies[i].y + 20 > ship.y
                 ) {
                     explosionSound.play();
+                    retryButton.style.display = 'block';
                     alert("Game Over! Score: " + score);
-                    document.location.reload();
+                    return;
                 }
 
                 if (enemies[i].y > canvas.height) {
@@ -120,6 +125,10 @@
                     i--;
                 }
             }
+        }
+
+        function increaseMissileFrequency() {
+            missileFrequency /= 2;
         }
 
         function drawScore() {
@@ -163,12 +172,21 @@
         document.getElementById('play-button').addEventListener('click', () => {
             if (!gameRunning) {
                 gameRunning = true;
+                retryButton.style.display = 'none';
                 setInterval(() => {
-                    enemies.push({ x: Math.random() * (canvas.width - 20), y: 0 });
-                    score += 10; // Her füze için 10 puan ekle
-                }, 1000);
+                    const randomX = Math.random() * (canvas.width - 20);
+                    enemies.push({ x: randomX, y: 0 });
+                    score += 10;
+                    if (score % 100 === 0) {
+                        increaseMissileFrequency();
+                    }
+                }, missileFrequency);
                 draw();
             }
+        });
+
+        retryButton.addEventListener('click', () => {
+            document.location.reload();
         });
     </script>
 </body>
