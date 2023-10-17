@@ -1,58 +1,30 @@
-const ship = { x: canvas.width / 2, y: canvas.height - 30, width: 30, height: 30, speed: 5 };
-const bullets = [];
-const enemies = [];
-let rightPressed = false;
-let leftPressed = false;
-let gameRunning = false; // Yeni eklenen değişken
+const canvas = document.getElementById('game-canvas');
+const ctx = canvas.getContext('2d');
+
+// ... (Diğer kodlar devam ediyor)
 
 function drawShip() {
-  // ... (kod devam ediyor, değişmemiş)
+  ctx.beginPath();
+  ctx.rect(ship.x, ship.y, ship.width, ship.height);
+  ctx.fillStyle = '#3498db';
+  ctx.fill();
+  ctx.closePath();
 }
 
 function drawBullet(bullet) {
-  // ... (kod devam ediyor, değişmemiş)
+  ctx.beginPath();
+  ctx.rect(bullet.x, bullet.y, 5, 10);
+  ctx.fillStyle = '#e74c3c';
+  ctx.fill();
+  ctx.closePath();
 }
 
 function drawEnemy(enemy) {
-  // ... (kod devam ediyor, değişmemiş)
+  ctx.beginPath();
+  ctx.rect(enemy.x, enemy.y, 20, 20);
+  ctx.fillStyle = '#e67e22';
+  ctx.fill();
+  ctx.closePath();
 }
 
-function moveShip() {
-  // ... (kod devam ediyor, değişmemiş)
-}
-
-function moveBullets() {
-  // ... (kod devam ediyor, değişmemiş)
-}
-
-function moveEnemies() {
-  // ... (kod devam ediyor, değişmemiş)
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawShip();
-  moveShip();
-  moveBullets();
-  moveEnemies();
-  requestAnimationFrame(draw);
-}
-
-document.addEventListener('keydown', (e) => {
-  // ... (kod devam ediyor, değişmemiş)
-});
-
-document.addEventListener('keyup', (e) => {
-  // ... (kod devam ediyor, değişmemiş)
-});
-
-document.getElementById('play-button').addEventListener('click', () => {
-  if (!gameRunning) {
-    gameRunning = true;
-    setInterval(() => {
-      enemies.push({ x: Math.random() * (canvas.width - 20), y: 0 });
-    }, 1000);
-    draw();
-    shootingSound.play(); // Ses çalma işlemi burada başlatılıyor
-  }
-});
+// ... (Diğer kodlar devam ediyor)
