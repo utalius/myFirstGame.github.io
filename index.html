@@ -40,9 +40,12 @@
         <canvas id="game-canvas" width="800" height="600"></canvas>
     </div>
     <button id="play-button">Play</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script>
         const canvas = document.getElementById('game-canvas');
         const ctx = canvas.getContext('2d');
+        const shootingSound = new Howl({ src: ['shooting.mp3'] });
+        const explosionSound = new Howl({ src: ['explosion.mp3'] });
 
         const ship = {
             x: canvas.width / 2,
@@ -113,6 +116,7 @@
                     enemies[i].y < ship.y + ship.height &&
                     enemies[i].y + 20 > ship.y
                 ) {
+                    explosionSound.play();
                     alert("Game Over!");
                     document.location.reload();
                 }
@@ -141,6 +145,7 @@
                 leftPressed = true;
             } else if (e.key === 'Space') {
                 bullets.push({ x: ship.x + ship.width / 2, y: ship.y });
+                shootingSound.play();
             }
         });
 
