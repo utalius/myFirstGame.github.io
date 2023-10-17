@@ -74,6 +74,7 @@
         let missileFrequency = 1000;
         let retryButton = document.getElementById('retry-button');
         let gameOver = false;
+        let missileIncreaseThreshold = 100;
 
         function drawShip() {
             ctx.beginPath();
@@ -143,6 +144,12 @@
                     score += 10;
                     enemies.splice(i, 1);
                     i--;
+
+                    // Skor 100'ün katlarına geldiğinde ve oyun hala devam ediyorsa
+                    if (score % missileIncreaseThreshold === 0 && gameRunning) {
+                        missileSpeed *= 2;
+                        missileIncreaseThreshold *= 2;
+                    }
                 }
             }
         }
@@ -195,8 +202,8 @@
                 retryButton.style.display = 'none';
                 gameOver = false;
                 setInterval(() => {
-                    const randomX = Math.random() * (canvas.width - 20);
-                    enemies.push({ x: randomX, y: 0 });
+                    // Füzeler artık oyuncunun bulunduğu yere doğru gelir
+                    enemies.push({ x: ship.x + ship.width / 2 - 10, y: 0 });
                     if (score % 100 === 0) {
                         increaseMissileFrequency();
                     }
